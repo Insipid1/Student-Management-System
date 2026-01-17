@@ -133,6 +133,43 @@ Node *SearchByRoll(Node *head,int rollno){
     }
     return NULL; // vetena vaney
 }
+
+//Update student Information
+int updateStudent(Node* head, int rollNo){
+    Node *temp=SearchByRoll(head,rollNo);
+
+    if(temp==NULL){
+        printf("The student with roll number %d doesnt exist.",temp->data.rollNumber);
+        return 0;
+    }
+    printf(CYAN"----Curennt Data----\n");
+    printf("N A M E:             %s  \n",temp->data.name);
+    printf("A G E:               %d  \n",temp->data.rollNumber);
+    printf("D E P A R T M E N T: %s  \n",temp->data.department);
+    printf("C-G P A:             %f  \n",temp->data.cgpa);
+    printf("E-M A I L:           %s  \n",temp->data.email);  
+    
+    //Changing to new data
+    printf("Name: ");
+    getchar(); 
+    fgets(temp->data.name, 50, stdin);
+    temp->data.name[strcspn(temp->data.name, "\n")] = 0;
+
+    printf("A G E:\n");
+    scanf("%d",&temp->data.age);
+    
+    printf("D E P A R T M E N T: \n");
+    scanf("%s",&temp->data.department);
+
+    printf("C-G P A: \n");
+    scanf("%f",&temp->data.cgpa);
+
+    printf("E-M A I L: %s\n");  
+    scanf("%s",temp->data.email);
+
+
+}
+
 void DeleteStudentBySN(Node **head, int sn)
 {
     if (*head == NULL)
@@ -225,7 +262,9 @@ int main()
 
         case 4:
             printf(GREEN "----You have selected \" Update Student Info\".----\n" RESET);
-
+            printf(CYAN"Enter the roll number of the desired student:\t");
+            scanf("%d",&roll);
+            updateStudent(head,roll);
             break;
 
         case 5:
