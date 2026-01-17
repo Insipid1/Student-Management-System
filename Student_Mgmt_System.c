@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include<string.h>    //gets use garna ko lagi
-#include<stdlib.h>    //malloc use garna ko lagi
+#include <string.h> //gets use garna ko lagi
+#include <stdlib.h> //malloc use garna ko lagi
 #define RESET "\033[0m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -42,36 +42,37 @@ Node *createNode(Student student)
 
 Student AddStudInfo()
 {
-Student s;
-    
+    Student s;
+
     printf("Enter Roll Number: ");
     scanf("%d", &s.rollNumber);
-    
+
     printf("Enter Name: ");
     getchar(); // getchar is easier than scanf.
     fgets(s.name, 50, stdin);
     s.name[strcspn(s.name, "\n")] = 0; // Remove newline
-    
+
     printf("Enter Age: ");
     scanf("%d", &s.age);
-    
+
     printf("Enter Department: ");
     scanf("%s", s.department);
-    
+
     printf("Enter CGPA: ");
     scanf("%f", &s.cgpa);
-    
+
     printf("Enter Email: ");
     scanf("%s", s.email);
-return s;
+    return s;
 }
 
 void InsertStudent(Node **head, Student student)
 {
     Node *newNode = createNode(student);
-    if(newNode == NULL) return; // Memory allocation failed
+    if (newNode == NULL)
+        return; // Memory allocation failed
 
-    if(*head == NULL)
+    if (*head == NULL)
     {
         // If the list is empty, new node becomes the head
         *head = newNode;
@@ -80,35 +81,33 @@ void InsertStudent(Node **head, Student student)
     {
         // Otherwise, insert at the end
         Node *temp = *head;
-        while(temp->next != NULL)
+        while (temp->next != NULL)
             temp = temp->next;
         temp->next = newNode;
     }
     printf(GREEN "✓ Student added successfully!\n" RESET);
 }
 
-
-
 // Display all students
 void DisplayAll(Node *head)
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         printf("No student records found!\n");
         return;
     }
 
-    printf("\n-------------------------------------------------------------------------------------------------\n");
-    printf("| %-5s | %-10s | %-20s | %-5s | %-15s | %-6s | %-25s |\n", 
-           "S.N.", "Roll No", "Name", "Age", "Department", "CGPA", "Email");
-    printf("-------------------------------------------------------------------------------------------------\n");
+     printf("\n");
+    printf("┌──────┬─────────────────────┬─────┬──────────────┬──────┬──────────────────────────┐\n");
+    printf("│ Roll │        Name         │ Age │  Department  │ CGPA │          Email           │\n");
+    printf("├──────┼─────────────────────┼─────┼──────────────┼──────┼──────────────────────────┤\n");
 
     Node *temp = head;
     int sn = 1; // serial number
-    while(temp != NULL)
+    while (temp != NULL)
     {
-        printf("| %-5d | %-10d | %-20s | %-5d | %-15s | %-6.2f | %-25s |\n",
-               sn,
+        printf("│ %-4d │ %-19s │ %3d │ %-12s │ %.2f │ %-24s │\n",
+               
                temp->data.rollNumber,
                temp->data.name,
                temp->data.age,
@@ -119,10 +118,8 @@ void DisplayAll(Node *head)
         sn++;
     }
 
-    printf("-------------------------------------------------------------------------------------------------\n");
+    printf("└──────┴─────────────────────┴─────┴──────────────┴──────┴──────────────────────────┘\n");
 }
-
-
 
 void DeleteStudentBySN(Node **head, int sn)
 {
@@ -166,12 +163,12 @@ int main()
 {
     int choice;
     Student s;
-    Node *head=NULL;
+    Node *head = NULL;
     int del;
     int sn;
 
     printf("╔════════════════════════════════════════════════════════╗\n");
-    printf("║        STUDENT MANAGEMENT SYSTEM v1.0                  ║\n");
+    printf("║              STUDENT MANAGEMENT SYSTEM                 ║\n");
     printf("║                 DSA Project 2025                       ║\n");
     printf("╚════════════════════════════════════════════════════════╝\n\n");
     // I2 symbols bata lyu corner haru liney vaye or copy paste gara.
@@ -182,70 +179,70 @@ int main()
     printf("│  2. Display All Students                               │\n");
     printf("│  3. Search Student                                     │\n");
     printf("│  4. Update Student                                     │\n");
-    printf("│  5. Display One Student Info                           │\n");
+    printf("│  5. Clear all records                                  │\n");
     printf("│  6. Delete Student                                     │\n");
     printf("│  7. Exit                                               │\n");
     printf("└────────────────────────────────────────────────────────┘\n");
 
-
-    while(1)
+    while (1)
     {
         printf("Please select the action you want to perform in accordance to its number:");
         scanf("%d", &choice);
 
         switch (choice)
         {
-            // case haru bhitra function call gara la
-            case 1:
-            printf(GREEN "----You have selected \" Add New Student\".----" RESET);
-            s= AddStudInfo();
-            InsertStudent(&head,s);
+        // case haru bhitra function call gara la
+        case 1:
+            printf(GREEN "----You have selected \" Add New Student\".----\n" RESET);
+            s = AddStudInfo();
+            InsertStudent(&head, s);
 
             break;
 
         case 2:
-            printf(GREEN "----You have selected \" Display Students\".----" RESET);
+            printf(GREEN "----You have selected \" Display Students\".----\n" RESET);
             DisplayAll(head);
             break;
 
         case 3:
-            printf(GREEN "----You have selected \" Search Student\".----" RESET);
+            printf(GREEN "----You have selected \" Search Student\".----\n" RESET);
 
             break;
 
         case 4:
-            printf(GREEN "----You have selected \" Update Student Info\".----" RESET);
+            printf(GREEN "----You have selected \" Update Student Info\".----\n" RESET);
 
             break;
 
         case 5:
-            printf(GREEN "----You have selected \" Display Students\".----" RESET);
-
+            printf(GREEN "----You have selected \" Clear all Records\".----\n" RESET);
+            displayStudent(head);
             break;
 
         case 6:
             printf(GREEN "----You have selected \" Delete Student\".----\n" RESET);
-            printf(YELLOW" ----Are you really sure? (1->Yes,0->No)----\n"RESET);
+            printf(YELLOW " ----Are you really sure? (1->Yes,0->No)----\n" RESET);
             scanf("%d", &del);
 
-            if(del==1)
+            if (del == 1)
             {
                 printf("Enter S.N. of student to delete: ");
                 scanf("%d", &sn);
                 DeleteStudentBySN(&head, sn);
-                printf(CYAN"----Sucessfully Deleted----"RESET);
+                printf(CYAN "----Sucessfully Deleted----" RESET);
             }
-            else if(del==0)
+            else if (del == 0)
             {
-                printf(BLUE"----Canceled Deletion----"RESET);
+                printf(BLUE "----Canceled Deletion----" RESET);
             }
-            else{
-                printf(RED"----Invalid Input!!!----"RESET);
+            else
+            {
+                printf(RED "----Invalid Input!!!----" RESET);
             }
 
             break;
         case 7:
-            printf(BLUE "___exiting program____"RESET);
+            printf(BLUE "___exiting program____" RESET);
             return 0;
 
         default:
