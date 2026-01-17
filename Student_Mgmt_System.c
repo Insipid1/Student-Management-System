@@ -121,6 +121,18 @@ void DisplayAll(Node *head)
     printf("└──────┴─────────────────────┴─────┴──────────────┴──────┴──────────────────────────┘\n");
 }
 
+//Searching with roll number.
+Node *SearchByRoll(Node *head,int rollno){
+    Node *temp=head;
+    while(temp!=NULL){
+    if(temp->data.rollNumber==rollno){
+        printf("Roll Number %d is: %s. \n",rollno,temp->data.name);
+        return temp;
+    }
+    temp=temp->next;
+    }
+    return NULL; // vetena vaney
+}
 void DeleteStudentBySN(Node **head, int sn)
 {
     if (*head == NULL)
@@ -165,7 +177,7 @@ int main()
     Student s;
     Node *head = NULL;
     int del;
-    int sn;
+    int sn,roll;
 
     printf("╔════════════════════════════════════════════════════════╗\n");
     printf("║              STUDENT MANAGEMENT SYSTEM                 ║\n");
@@ -206,7 +218,9 @@ int main()
 
         case 3:
             printf(GREEN "----You have selected \" Search Student\".----\n" RESET);
-
+            printf(CYAN"Enter the roll number of the desired student:\t");
+            scanf("%d",&roll);
+            SearchByRoll(head,roll);
             break;
 
         case 4:
@@ -216,7 +230,7 @@ int main()
 
         case 5:
             printf(GREEN "----You have selected \" Clear all Records\".----\n" RESET);
-            displayStudent(head);
+            
             break;
 
         case 6:
