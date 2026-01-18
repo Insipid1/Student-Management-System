@@ -1,8 +1,8 @@
 # Student-Management-System
-This Mini-project was done to fulfill the assigment requirement of the course we have in the third semester of Computer Science. This Mini-Project was done by our group which consisted of: Sampada  Poudel(09)
-                          Himamshu Poudel(10)
-                          Swasti   Pradhan(11)
-                          Shirish Tamrakar(30)
+This Mini-project was done to fulfill the assigment requirement of the course we have in the third semester of Computer Science. This Mini-Project was done by our group which consisted of: <h4>Sampada  Poudel(09)</h4>
+                          <h4>Himamshu Poudel(10)</h4>
+                          <h4>Swasti   Pradhan(11)</h4>
+                          <h4>Shirish Tamrakar(30)</h4>
 This project is terminal-based meaning there are no GUI elements used for inputs as well as outputs and Was purely done in C programming language. This project demonstrates linked lists and file handling. 
 
 You may wonder "Couldn't array be used for storing the Student's information?" but due to constant addition, updates and removal of students, Array comes short.
