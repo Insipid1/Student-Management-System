@@ -252,7 +252,7 @@ void SaveToFile(Node *head){
                temp->data.age,
                temp->data.department,
                temp->data.cgpa,
-               temp->data.email);1
+               temp->data.email);
         temp = temp->next;
        
         }
