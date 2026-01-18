@@ -139,12 +139,12 @@ int updateStudent(Node* head, int rollNo){
     Node *temp=SearchByRoll(head,rollNo);
 
     if(temp==NULL){
-        printf("The student with roll number %d doesnt exist.",temp->data.rollNumber);
+        printf("The student with roll number %d doesnt exist.",rollNo);
         return 0;
     }
     printf(CYAN"----Curennt Data----\n");
     printf("N A M E:             %s  \n",temp->data.name);
-    printf("A G E:               %d  \n",temp->data.rollNumber);
+    printf("A G E:               %d  \n",temp->data.age);
     printf("D E P A R T M E N T: %s  \n",temp->data.department);
     printf("C-G P A:             %f  \n",temp->data.cgpa);
     printf("E-M A I L:           %s  \n",temp->data.email);  
@@ -164,9 +164,31 @@ int updateStudent(Node* head, int rollNo){
     printf("C-G P A: \n");
     scanf("%f",&temp->data.cgpa);
 
-    printf("E-M A I L: %s\n");  
+    printf("E-M A I L: \n");  
     scanf("%s",temp->data.email);
+return 1;
 
+}
+
+//Clear all function
+int clearAll(Node *head){
+
+Node *temp=head;
+Node *next=NULL;
+int count=0;
+
+if(temp==NULL){
+    printf(YELLOW"No records to be found.\n"RESET);
+    return 0;
+}
+
+while(temp!=NULL){
+next=temp->next;
+free(temp);
+temp=next;
+count++;
+}
+printf(GREEN"All %d records sucessfully deleted"RESET,count);
 
 }
 
@@ -205,6 +227,7 @@ void DeleteStudentBySN(Node **head, int sn)
     free(temp);
     printf(GREEN "✓ Student at S.N. %d deleted successfully!\n" RESET, sn);
 }
+
 
 
 
@@ -269,7 +292,7 @@ int main()
 
         case 5:
             printf(GREEN "----You have selected \" Clear all Records\".----\n" RESET);
-            
+            clearAll(head);
             break;
 
         case 6:
