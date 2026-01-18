@@ -16,23 +16,23 @@ While using linked list solves this problem. Additionally, Linked list prevent m
 1. **Add New Student**  
     This function helps user add student information (Name, Roll Number, Age, Department, C-GPA, E-Mail)to the program  and stores it temproraily for further          process.
     
-2. **Display All Students** 
-    Display All Student function basically allows users to display all records of the students that have been added in current instance of program execution.
+2. **Display All Students** <br>
+    Display All Student function basically allows users to display all records of the students that have been added in current instance of program execution.\n
     
-3. **Search Student**
+3. **Search Student**<br>
     As per the function name, This Function allows users to search for a particular student from their roll number.
     
-4. **Update Student**
+4. **Update Student**<br>
     This function allows users to change/update all the details of an existing student.
     
-5. **Clear All Records** 
+5. **Clear All Records** <br>
     This function deletes/removes all the records stored in the program.
     
-6. **Save Data to a Text File**
+6. **Save Data to a Text File**<br>
     This function asks the user if they want to store the currently saved records of the students in the current instance to a .txt file for future uses.
     
-7. **Delete Student**  
+7. **Delete Student**  <br>
     This function deletes record of particular student, which can be picked/selected from their roll number.
     
-8. **Exit**
+8. **Exit**<br>
     This basically ends the whole projects.
