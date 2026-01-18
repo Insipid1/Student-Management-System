@@ -40,6 +40,9 @@ Node *createNode(Student student)
     return newNode;
 }
 
+
+
+
 Student AddStudInfo()
 {
     Student s;
@@ -228,7 +231,38 @@ void DeleteStudentBySN(Node **head, int sn)
     printf(GREEN "✓ Student at S.N. %d deleted successfully!\n" RESET, sn);
 }
 
+void SaveToFile(Node *head){
+    FILE *Records=NULL;
+    Node *temp=head;
+        Records=fopen("Records.txt","a");
+        if(Records==NULL){
+        printf(RED"Error Opening a file.\n"RESET);
+        }
+        fprintf(Records, "STUDENT MANAGEMENT SYSTEM - DATA EXPORT\n");
+        fprintf(Records, "==========================================\n\n");
+        fprintf(Records,"┌──────┬─────────────────────┬─────┬──────────────┬──────┬──────────────────────────┐\n");
+        fprintf(Records,"│ Roll │        Name         │ Age │  Department  │ CGPA │          Email           │\n");
+        fprintf(Records,"├──────┼─────────────────────┼─────┼──────────────┼──────┼──────────────────────────┤\n");
 
+        while(temp!=NULL){
+             fprintf(Records,"│ %-4d │ %-19s │ %3d │ %-12s │ %.2f │ %-24s │\n",
+               
+               temp->data.rollNumber,
+               temp->data.name,
+               temp->data.age,
+               temp->data.department,
+               temp->data.cgpa,
+               temp->data.email);1
+        temp = temp->next;
+       
+        }
+        fprintf(Records,"└──────┴─────────────────────┴─────┴──────────────┴──────┴──────────────────────────┘\n");
+        fclose(Records);
+        printf(GREEN "✓ Data exported to 'Records.txt'\n" RESET);
+
+
+
+}
 
 
 int main()
@@ -252,10 +286,13 @@ int main()
     printf("│  3. Search Student                                     │\n");
     printf("│  4. Update Student                                     │\n");
     printf("│  5. Clear all records                                  │\n");
-    printf("│  6. Delete Student                                     │\n");
-    printf("│  7. Exit                                               │\n");
+    printf("│  6. Save data to a text file                           │\n");
+    printf("│  7. Delete Student                                     │\n");
+    printf("│  8. Exit                                               │\n");
     printf("└────────────────────────────────────────────────────────┘\n");
-
+    
+    //FILE MA RECORD STORE GARNA, Different instance run huda pani store garney
+    
     while (1)
     {
         printf("Please select the action you want to perform in accordance to its number:");
@@ -296,6 +333,11 @@ int main()
             break;
 
         case 6:
+        printf(GREEN "----You have selected \"Save data to a text file\".----\n" RESET);
+        SaveToFile(head);
+        break;
+
+        case 7:
             printf(GREEN "----You have selected \" Delete Student\".----\n" RESET);
             printf(YELLOW " ----Are you really sure? (1->Yes,0->No)----\n" RESET);
             scanf("%d", &del);
@@ -317,7 +359,7 @@ int main()
             }
 
             break;
-        case 7:
+        case 8:
             printf(BLUE "___exiting program____" RESET);
             return 0;
 
