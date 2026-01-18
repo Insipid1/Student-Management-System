@@ -1,4 +1,7 @@
 # Student-Management-System
+header{
+color:cyan;
+}
 This Mini-project was done to fulfill the assigment requirement of the course we have in the third semester of Computer Science. This Mini-Project was done by our group which consisted of: <h4>---Sampada  Poudel(09)---</h4>
                           <h4>---Himamshu Poudel(10)---</h4>
                           <h4>---Swasti   Pradhan(11)---</h4>
@@ -10,7 +13,7 @@ Array is very inefficient in deleting the records and addition of records in mid
 While using linked list solves this problem. Additionally, Linked list prevent memory overflow due to dynamic memory allocation for nodes.
 
 <h3>Core Functions in this project.</h3>
-<h5 color="Cyan"> 1.  Add New Student      </h5>                               
+<h5> 1.  Add New Student      </h5>                               
 <h5> 2.  Display All Students </h5>                          
 <h5> 3.  Search Student       </h5>                       
 <h5> 4.  Update Student       </h5>                              
