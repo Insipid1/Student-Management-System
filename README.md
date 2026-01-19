@@ -36,3 +36,26 @@ While using linked list solves this problem. Additionally, Linked list prevent m
     
 8. **Exit**<br>
     This basically ends the whole projects.
+
+## 🔧 Technical Implementation
+
+### Data Structures Used
+
+#### Student Structure
+```c
+typedef struct Student {
+    int rollNumber;      // Unique identifier 
+    char name[50];       // Student name
+    int age;             // Age
+    char department[30]; // Department/Major of the students
+    float cgpa;          // CGPA (0.0 - 4.0)
+    char email[50];      // Email address
+} Student;
+```
+
+#### Node Structure (Linked List)
+```c
+typedef struct Node {
+    Student data;        // Student information
+    struct Node* next;   // Pointer to next node
+} Node;
