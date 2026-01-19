@@ -57,12 +57,26 @@ Student AddStudInfo()
 
     printf("Enter Age: ");
     scanf("%d", &s.age);
+    age_valid:
+    if(s.age>100||s.age<0){
+        printf(RED"Invalid Input, Please enter the age again:"RESET);
+        scanf("%d", &s.age);
+        printf("\n");
+        goto age_valid;
+    }
 
     printf("Enter Department: ");
     scanf("%s", s.department);
 
     printf("Enter CGPA: ");
     scanf("%f", &s.cgpa);
+    Cgpa_valid:
+    if (s.cgpa<0 ||s.cgpa>4){
+        printf(RED"Invalid Input, C-GPA should be in between 0.00-4.00, Please enter the C-GPA again:"RESET);
+        scanf("%f", &s.cgpa);
+        printf("\n");
+        goto Cgpa_valid;
+    }
 
     printf("Enter Email: ");
     scanf("%s", s.email);
@@ -160,12 +174,26 @@ int updateStudent(Node* head, int rollNo){
 
     printf("A G E:\n");
     scanf("%d",&temp->data.age);
+    age_valid:
+    if(temp->data.age>100||temp->data.age<0){
+        printf(RED"Invalid Input, Please enter the age again:"RESET);
+        scanf("%d", &temp->data.age);
+        printf("\n");
+        goto age_valid;
+    }
     
     printf("D E P A R T M E N T: \n");
     scanf("%s",&temp->data.department);
 
     printf("C-G P A: \n");
     scanf("%f",&temp->data.cgpa);
+    Cgpa_valid:
+    if (temp->data.cgpa<0 ||temp->data.cgpa>4){
+        printf(RED"Invalid Input, C-GPA should be in between 0.00-4.00, Please enter the C-GPA again:"RESET);
+        scanf("%f", &temp->data.cgpa);
+        printf("\n");
+        goto Cgpa_valid;
+    }
 
     printf("E-M A I L: \n");  
     scanf("%s",temp->data.email);
