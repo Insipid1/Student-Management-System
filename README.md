@@ -100,7 +100,6 @@ gcc -o student main.c student.c -Wall
 ```bash
 gcc -o student.exe main.c student.c -Wall
 student.exe
-## 📖 Usage Guide
 ```
 
 ### Main Menu
