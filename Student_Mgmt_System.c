@@ -216,7 +216,7 @@ int main()
 
         case 5:
             printf(GREEN "----You have selected \" Clear all Records\".----\n" RESET);
-            displayStudent(head);
+            DisplayAll(head);
             break;
 
         case 6:
