@@ -183,7 +183,7 @@ int updateStudent(Node* head, int rollNo){
     }
     
     printf("D E P A R T M E N T: \n");
-    scanf("%s",&temp->data.department);
+    scanf("%s",temp->data.department);
 
     printf("C-G P A: \n");
     scanf("%f",&temp->data.cgpa);
@@ -220,10 +220,10 @@ temp=next;
 count++;
 }
 printf(GREEN"All %d records sucessfully deleted"RESET,count);
-
+return 1;
 }
 
-void DeleteStudentBySN(Node **head, int sn)
+void DeleteStudentByRoll(Node **head, int roll)
 {
     if (*head == NULL)
     {
@@ -233,31 +233,35 @@ void DeleteStudentBySN(Node **head, int sn)
 
     Node *temp = *head;
     Node *prev = NULL;
-    int count = 1;
 
-    // Find the node with matching serial number
-    while (temp != NULL && count < sn)
+    // If head node itself has the roll number
+    if (temp->data.rollNumber == roll)
+    {
+        *head = temp->next;
+        free(temp);
+        printf(GREEN "✓ Student with Roll No %d deleted successfully!\n" RESET, roll);
+        return;
+    }
+
+    // Search for roll number
+    while (temp != NULL && temp->data.rollNumber != roll)
     {
         prev = temp;
         temp = temp->next;
-        count++;
     }
 
     if (temp == NULL)
     {
-        printf(RED "Invalid S.N. '%d'. Student not found.\n" RESET, sn);
+        printf(RED "Student with Roll No %d not found!\n" RESET, roll);
         return;
     }
 
-    // Remove the node
-    if (prev == NULL) // deleting head
-        *head = temp->next;
-    else
-        prev->next = temp->next;
-
+    // Delete node
+    prev->next = temp->next;
     free(temp);
-    printf(GREEN "✓ Student at S.N. %d deleted successfully!\n" RESET, sn);
+    printf(GREEN "✓ Student with Roll No %d deleted successfully!\n" RESET, roll);
 }
+
 
 void SaveToFile(Node *head){
     FILE *Records=NULL;
@@ -299,7 +303,7 @@ int main()
     Student s;
     Node *head = NULL;
     int del;
-    int sn,roll;
+    int roll;
 
     printf("╔════════════════════════════════════════════════════════╗\n");
     printf("║              STUDENT MANAGEMENT SYSTEM                 ║\n");
@@ -372,9 +376,9 @@ int main()
 
             if (del == 1)
             {
-                printf("Enter S.N. of student to delete: ");
-                scanf("%d", &sn);
-                DeleteStudentBySN(&head, sn);
+                printf("Enter Roll No. of student to delete: ");
+                scanf("%d", &roll);
+                DeleteStudentByRoll(&head, roll);
                 printf(CYAN "----Sucessfully Deleted----" RESET);
             }
             else if (del == 0)
