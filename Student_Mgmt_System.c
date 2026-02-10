@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <string.h> //gets use garna ko lagi
-#include <stdlib.h> //malloc use garna ko lagi
+#include <string.h> // gets use garna ko lagi
+#include <stdlib.h> // malloc use garna ko lagi
+
 #define RESET "\033[0m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -8,8 +9,7 @@
 #define BLUE "\033[34m"
 #define CYAN "\033[36m" // output ko color ko lagi
 
-typedef struct Student
-{
+typedef struct Student {
     int rollNumber;
     char name[50];
     int age;
@@ -18,33 +18,25 @@ typedef struct Student
     char email[50];
 } Student;
 
-typedef struct Node // node ko 1st index 'data'-> sabei information contain garcha
-{                   // ani 2nd index le address lai point garcha
-    Student data;
+typedef struct Node { // node ko 1st index 'data'-> sabei information contain garcha
+    Student data;     // ani 2nd index le address lai point garcha
     struct Node *next;
 } Node;
 
-Node *createNode(Student student)
-{ // Naya node ko creation
+Node *createNode(Student student) { // Naya node ko creation
     Node *newNode = (Node *)malloc(sizeof(Node));
 
-    if (newNode == NULL)
-    {
+    if (newNode == NULL) {
         printf(RED "Memory allocation failed!\n" RESET);
         return NULL;
     }
 
     newNode->data = student;
     newNode->next = NULL;
-
     return newNode;
 }
 
-
-
-
-Student AddStudInfo()
-{
+Student AddStudInfo() {
     Student s;
 
     printf("Enter Roll Number: ");
@@ -57,9 +49,9 @@ Student AddStudInfo()
 
     printf("Enter Age: ");
     scanf("%d", &s.age);
-    age_valid:
-    if(s.age>100||s.age<0){
-        printf(RED"Invalid Input, Please enter the age again:"RESET);
+age_valid:
+    if (s.age > 100 || s.age < 0) {
+        printf(RED "Invalid Input, Please enter the age again:" RESET);
         scanf("%d", &s.age);
         printf("\n");
         goto age_valid;
@@ -70,9 +62,9 @@ Student AddStudInfo()
 
     printf("Enter CGPA: ");
     scanf("%f", &s.cgpa);
-    Cgpa_valid:
-    if (s.cgpa<0 ||s.cgpa>4){
-        printf(RED"Invalid Input, C-GPA should be in between 0.00-4.00, Please enter the C-GPA again:"RESET);
+Cgpa_valid:
+    if (s.cgpa < 0 || s.cgpa > 4) {
+        printf(RED "Invalid Input, C-GPA should be in between 0.00-4.00, Please enter the C-GPA again:" RESET);
         scanf("%f", &s.cgpa);
         printf("\n");
         goto Cgpa_valid;
@@ -80,23 +72,18 @@ Student AddStudInfo()
 
     printf("Enter Email: ");
     scanf("%s", s.email);
+
     return s;
 }
 
-void InsertStudent(Node **head, Student student)
-{
+void InsertStudent(Node **head, Student student) {
     Node *newNode = createNode(student);
     if (newNode == NULL)
         return; // Memory allocation failed
 
-    if (*head == NULL)
-    {
-        // If the list is empty, new node becomes the head
+    if (*head == NULL) {
         *head = newNode;
-    }
-    else
-    {
-        // Otherwise, insert at the end
+    } else {
         Node *temp = *head;
         while (temp->next != NULL)
             temp = temp->next;
@@ -106,25 +93,20 @@ void InsertStudent(Node **head, Student student)
 }
 
 // Display all students
-void DisplayAll(Node *head)
-{
-    if (head == NULL)
-    {
+void DisplayAll(Node *head) {
+    if (head == NULL) {
         printf("No student records found!\n");
         return;
     }
 
-     printf("\n");
-    printf("┌──────┬─────────────────────┬─────┬──────────────┬──────┬──────────────────────────┐\n");
-    printf("│ Roll │        Name         │ Age │  Department  │ CGPA │          Email           │\n");
-    printf("├──────┼─────────────────────┼─────┼──────────────┼──────┼──────────────────────────┤\n");
+    printf("\n");
+    printf("+------+---------------------+-----+--------------+------+--------------------------+\n");
+    printf("| Roll |        Name         | Age |  Department  | CGPA |          Email           |\n");
+    printf("+------+---------------------+-----+--------------+------+--------------------------+\n");
 
     Node *temp = head;
-    int sn = 1; // serial number
-    while (temp != NULL)
-    {
-        printf("│ %-4d │ %-19s │ %3d │ %-12s │ %.2f │ %-24s │\n",
-               
+    while (temp != NULL) {
+        printf("| %-4d | %-19s | %3d | %-12s | %.2f | %-24s |\n",
                temp->data.rollNumber,
                temp->data.name,
                temp->data.age,
@@ -132,101 +114,98 @@ void DisplayAll(Node *head)
                temp->data.cgpa,
                temp->data.email);
         temp = temp->next;
-        sn++;
     }
 
-    printf("└──────┴─────────────────────┴─────┴──────────────┴──────┴──────────────────────────┘\n");
+    printf("+------+---------------------+-----+--------------+------+--------------------------+\n");
 }
 
-//Searching with roll number.
-Node *SearchByRoll(Node *head,int rollno){
-    Node *temp=head;
-    while(temp!=NULL){
-    if(temp->data.rollNumber==rollno){
-        printf("Roll Number %d is: %s. \n",rollno,temp->data.name);
-        return temp;
-    }
-    temp=temp->next;
+// Searching with roll number.
+Node *SearchByRoll(Node *head, int rollno) {
+    Node *temp = head;
+    while (temp != NULL) {
+        if (temp->data.rollNumber == rollno) {
+            printf("Roll Number %d is: %s. \n", rollno, temp->data.name);
+            return temp;
+        }
+        temp = temp->next;
     }
     return NULL; // vetena vaney
 }
 
-//Update student Information
-int updateStudent(Node* head, int rollNo){
-    Node *temp=SearchByRoll(head,rollNo);
+// Update student Information
+int updateStudent(Node *head, int rollNo) {
+    Node *temp = SearchByRoll(head, rollNo);
 
-    if(temp==NULL){
-        printf("The student with roll number %d doesnt exist.",rollNo);
+    if (temp == NULL) {
+        printf("The student with roll number %d doesnt exist.", rollNo);
         return 0;
     }
-    printf(CYAN"----Curennt Data----\n");
-    printf("N A M E:             %s  \n",temp->data.name);
-    printf("A G E:               %d  \n",temp->data.age);
-    printf("D E P A R T M E N T: %s  \n",temp->data.department);
-    printf("C-G P A:             %f  \n",temp->data.cgpa);
-    printf("E-M A I L:           %s  \n",temp->data.email);  
-    
-    //Changing to new data
+
+    printf(CYAN "----Curennt Data----\n" RESET);
+    printf("N A M E:             %s  \n", temp->data.name);
+    printf("A G E:               %d  \n", temp->data.age);
+    printf("D E P A R T M E N T: %s  \n", temp->data.department);
+    printf("C-G P A:             %f  \n", temp->data.cgpa);
+    printf("E-M A I L:           %s  \n", temp->data.email);
+
+    // Changing to new data
     printf("Name: ");
-    getchar(); 
+    getchar();
     fgets(temp->data.name, 50, stdin);
     temp->data.name[strcspn(temp->data.name, "\n")] = 0;
 
     printf("A G E:\n");
-    scanf("%d",&temp->data.age);
-    age_valid:
-    if(temp->data.age>100||temp->data.age<0){
-        printf(RED"Invalid Input, Please enter the age again:"RESET);
+    scanf("%d", &temp->data.age);
+age_valid:
+    if (temp->data.age > 100 || temp->data.age < 0) {
+        printf(RED "Invalid Input, Please enter the age again:" RESET);
         scanf("%d", &temp->data.age);
         printf("\n");
         goto age_valid;
     }
-    
+
     printf("D E P A R T M E N T: \n");
-    scanf("%s",temp->data.department);
+    scanf("%s", temp->data.department);
 
     printf("C-G P A: \n");
-    scanf("%f",&temp->data.cgpa);
-    Cgpa_valid:
-    if (temp->data.cgpa<0 ||temp->data.cgpa>4){
-        printf(RED"Invalid Input, C-GPA should be in between 0.00-4.00, Please enter the C-GPA again:"RESET);
+    scanf("%f", &temp->data.cgpa);
+Cgpa_valid:
+    if (temp->data.cgpa < 0 || temp->data.cgpa > 4) {
+        printf(RED "Invalid Input, C-GPA should be in between 0.00-4.00, Please enter the C-GPA again:" RESET);
         scanf("%f", &temp->data.cgpa);
         printf("\n");
         goto Cgpa_valid;
     }
 
-    printf("E-M A I L: \n");  
-    scanf("%s",temp->data.email);
-return 1;
+    printf("E-M A I L: \n");
+    scanf("%s", temp->data.email);
 
+    return 1;
 }
 
-//Clear all function
-int clearAll(Node *head){
+// Clear all function
+int clearAll(Node *head) {
+    Node *temp = head;
+    Node *next = NULL;
+    int count = 0;
 
-Node *temp=head;
-Node *next=NULL;
-int count=0;
+    if (temp == NULL) {
+        printf(YELLOW "No records to be found.\n" RESET);
+        return 0;
+    }
 
-if(temp==NULL){
-    printf(YELLOW"No records to be found.\n"RESET);
-    return 0;
+    while (temp != NULL) {
+        next = temp->next;
+        free(temp);
+        temp = next;
+        count++;
+    }
+    printf(GREEN "All %d records sucessfully deleted\n" RESET, count);
+    return 1;
 }
 
-while(temp!=NULL){
-next=temp->next;
-free(temp);
-temp=next;
-count++;
-}
-printf(GREEN"All %d records sucessfully deleted"RESET,count);
-return 1;
-}
-
-void DeleteStudentByRoll(Node **head, int roll)
-{
-    if (*head == NULL)
-    {
+void DeleteStudentByRoll(Node **head, int roll) {
+    if (*head == NULL) {
         printf(RED "No student records to delete!\n" RESET);
         return;
     }
@@ -234,110 +213,94 @@ void DeleteStudentByRoll(Node **head, int roll)
     Node *temp = *head;
     Node *prev = NULL;
 
-    // If head node itself has the roll number
-    if (temp->data.rollNumber == roll)
-    {
+    if (temp->data.rollNumber == roll) {
         *head = temp->next;
         free(temp);
         printf(GREEN "✓ Student with Roll No %d deleted successfully!\n" RESET, roll);
         return;
     }
 
-    // Search for roll number
-    while (temp != NULL && temp->data.rollNumber != roll)
-    {
+    while (temp != NULL && temp->data.rollNumber != roll) {
         prev = temp;
         temp = temp->next;
     }
 
-    if (temp == NULL)
-    {
+    if (temp == NULL) {
         printf(RED "Student with Roll No %d not found!\n" RESET, roll);
         return;
     }
 
-    // Delete node
     prev->next = temp->next;
     free(temp);
     printf(GREEN "✓ Student with Roll No %d deleted successfully!\n" RESET, roll);
 }
 
+void SaveToFile(Node *head) {
+    FILE *Records = NULL;
+    Node *temp = head;
+    Records = fopen("Records.txt", "a");
+    if (Records == NULL) {
+        printf(RED "Error Opening a file.\n" RESET);
+        return;
+    }
 
-void SaveToFile(Node *head){
-    FILE *Records=NULL;
-    Node *temp=head;
-        Records=fopen("Records.txt","a");
-        if(Records==NULL){
-        printf(RED"Error Opening a file.\n"RESET);
-        }
-        fprintf(Records, "STUDENT MANAGEMENT SYSTEM - DATA EXPORT\n");
-        fprintf(Records, "==========================================\n\n");
-        fprintf(Records,"┌──────┬─────────────────────┬─────┬──────────────┬──────┬──────────────────────────┐\n");
-        fprintf(Records,"│ Roll │        Name         │ Age │  Department  │ CGPA │          Email           │\n");
-        fprintf(Records,"├──────┼─────────────────────┼─────┼──────────────┼──────┼──────────────────────────┤\n");
+    fprintf(Records, "STUDENT MANAGEMENT SYSTEM - DATA EXPORT\n");
+    fprintf(Records, "==========================================\n\n");
 
-        while(temp!=NULL){
-             fprintf(Records,"│ %-4d │ %-19s │ %3d │ %-12s │ %.2f │ %-24s │\n",
-               
-               temp->data.rollNumber,
-               temp->data.name,
-               temp->data.age,
-               temp->data.department,
-               temp->data.cgpa,
-               temp->data.email);
+    fprintf(Records, "+------+---------------------+-----+--------------+------+--------------------------+\n");
+    fprintf(Records, "| Roll |        Name         | Age |  Department  | CGPA |          Email           |\n");
+    fprintf(Records, "+------+---------------------+-----+--------------+------+--------------------------+\n");
+
+    while (temp != NULL) {
+        fprintf(Records, "| %-4d | %-19s | %3d | %-12s | %.2f | %-24s |\n",
+                temp->data.rollNumber,
+                temp->data.name,
+                temp->data.age,
+                temp->data.department,
+                temp->data.cgpa,
+                temp->data.email);
         temp = temp->next;
-       
-        }
-        fprintf(Records,"└──────┴─────────────────────┴─────┴──────────────┴──────┴──────────────────────────┘\n");
-        fclose(Records);
-        printf(GREEN "✓ Data exported to 'Records.txt'\n" RESET);
+    }
 
-
-
+    fprintf(Records, "+------+---------------------+-----+--------------+------+--------------------------+\n");
+    fclose(Records);
+    printf(GREEN "✓ Data exported to 'Records.txt'\n" RESET);
 }
 
-
-int main()
-{
+int main() {
     int choice;
     Student s;
     Node *head = NULL;
     int del;
     int roll;
 
-    printf("╔════════════════════════════════════════════════════════╗\n");
-    printf("║              STUDENT MANAGEMENT SYSTEM                 ║\n");
-    printf("║                 DSA Project 2025                       ║\n");
-    printf("╚════════════════════════════════════════════════════════╝\n\n");
-    // I2 symbols bata lyu corner haru liney vaye or copy paste gara.
-    printf("┌────────────────────────────────────────────────────────┐\n");
-    printf("│                        MAIN MENU                       │\n");
-    printf("├────────────────────────────────────────────────────────┤\n");
-    printf("│  1. Add New Student                                    │\n");
-    printf("│  2. Display All Students                               │\n");
-    printf("│  3. Search Student                                     │\n");
-    printf("│  4. Update Student                                     │\n");
-    printf("│  5. Clear all records                                  │\n");
-    printf("│  6. Save data to a text file                           │\n");
-    printf("│  7. Delete Student                                     │\n");
-    printf("│  8. Exit                                               │\n");
-    printf("└────────────────────────────────────────────────────────┘\n");
-    
-    //FILE MA RECORD STORE GARNA, Different instance run huda pani store garney
-    
-    while (1)
-    {
-        printf("Please select the action you want to perform in accordance to its number:");
+    printf("+========================================================+\n");
+    printf("|              STUDENT MANAGEMENT SYSTEM                 |\n");
+    printf("|                 DSA Project 2025                       |\n");
+    printf("+========================================================+\n\n");
+
+    printf("+--------------------------------------------------------+\n");
+    printf("|                        MAIN MENU                       |\n");
+    printf("+--------------------------------------------------------+\n");
+    printf("|  1. Add New Student                                    |\n");
+    printf("|  2. Display All Students                               |\n");
+    printf("|  3. Search Student                                     |\n");
+    printf("|  4. Update Student                                     |\n");
+    printf("|  5. Clear all records                                  |\n");
+    printf("|  6. Save data to a text file                           |\n");
+    printf("|  7. Delete Student                                     |\n");
+    printf("|  8. Exit                                               |\n");
+    printf("+--------------------------------------------------------+\n");
+
+    while (1) {
+        printf("Please select the action you want to perform in accordance to its number: ");
         scanf("%d", &choice);
 
-        switch (choice)
-        {
-        // case haru bhitra function call gara la
+        switch (choice) {
         case 1:
             printf(GREEN "----You have selected \" Add New Student\".----\n" RESET);
             s = AddStudInfo();
             InsertStudent(&head, s);
-
             break;
 
         case 2:
@@ -347,56 +310,52 @@ int main()
 
         case 3:
             printf(GREEN "----You have selected \" Search Student\".----\n" RESET);
-            printf(CYAN"Enter the roll number of the desired student:\t");
-            scanf("%d",&roll);
-            SearchByRoll(head,roll);
+            printf(CYAN "Enter the roll number of the desired student:\t" RESET);
+            scanf("%d", &roll);
+            SearchByRoll(head, roll);
             break;
 
         case 4:
             printf(GREEN "----You have selected \" Update Student Info\".----\n" RESET);
-            printf(CYAN"Enter the roll number of the desired student:\t");
-            scanf("%d",&roll);
-            updateStudent(head,roll);
+            printf(CYAN "Enter the roll number of the desired student:\t" RESET);
+            scanf("%d", &roll);
+            updateStudent(head, roll);
             break;
 
         case 5:
             printf(GREEN "----You have selected \" Clear all Records\".----\n" RESET);
             clearAll(head);
+            head = NULL; // important after freeing
             break;
 
         case 6:
-        printf(GREEN "----You have selected \"Save data to a text file\".----\n" RESET);
-        SaveToFile(head);
-        break;
+            printf(GREEN "----You have selected \"Save data to a text file\".----\n" RESET);
+            SaveToFile(head);
+            break;
 
         case 7:
             printf(GREEN "----You have selected \" Delete Student\".----\n" RESET);
             printf(YELLOW " ----Are you really sure? (1->Yes,0->No)----\n" RESET);
             scanf("%d", &del);
 
-            if (del == 1)
-            {
+            if (del == 1) {
                 printf("Enter Roll No. of student to delete: ");
                 scanf("%d", &roll);
                 DeleteStudentByRoll(&head, roll);
-                printf(CYAN "----Sucessfully Deleted----" RESET);
+                printf(CYAN "----Sucessfully Deleted----\n" RESET);
+            } else if (del == 0) {
+                printf(BLUE "----Canceled Deletion----\n" RESET);
+            } else {
+                printf(RED "----Invalid Input!!!----\n" RESET);
             }
-            else if (del == 0)
-            {
-                printf(BLUE "----Canceled Deletion----" RESET);
-            }
-            else
-            {
-                printf(RED "----Invalid Input!!!----" RESET);
-            }
-
             break;
+
         case 8:
-            printf(BLUE "___exiting program____" RESET);
+            printf(BLUE "___exiting program____\n" RESET);
             return 0;
 
         default:
-            printf(RED "----Invalid Choice ----" RESET);
+            printf(RED "----Invalid Choice ----\n" RESET);
             break;
         }
     }
