@@ -9,6 +9,8 @@
 #define BLUE "\033[34m"
 #define CYAN "\033[36m" // output ko color ko lagi
 
+void LoadFromFile(Node **head);
+
 typedef struct Student {
     int rollNumber;
     char name[50];
@@ -235,7 +237,7 @@ void DeleteStudentByRoll(Node **head, int roll) {
     printf(GREEN "✓ Student with Roll No %d deleted successfully!\n" RESET, roll);
 }
 
-void SaveToFile(Node *head) {
+/*void SaveToFile(Node *head) {
     FILE *Records = NULL;
     Node *temp = head;
     Records = fopen("Records.txt", "a");
@@ -265,12 +267,40 @@ void SaveToFile(Node *head) {
     fprintf(Records, "+------+---------------------+-----+--------------+------+--------------------------+\n");
     fclose(Records);
     printf(GREEN "✓ Data exported to 'Records.txt'\n" RESET);
+}*/
+
+void LoadFromFile(Node **head) {
+    FILE *fp = fopen("Records.dat", "rb");   // binary read
+    if (fp == NULL) {
+        printf(YELLOW "No previous records found.\n" RESET);
+        return;
+    }
+
+    Student s;
+
+    while (fread(&s, sizeof(Student), 1, fp) == 1) {
+        Node *newNode = createNode(s);
+
+        if (*head == NULL) {
+            *head = newNode;
+        } else {
+            Node *temp = *head;
+            while (temp->next != NULL)
+                temp = temp->next;
+            temp->next = newNode;
+        }
+    }
+
+    fclose(fp);
+    printf(GREEN "✓ Data loaded from 'Records.dat'\n" RESET);
 }
 
 int main() {
     int choice;
     Student s;
     Node *head = NULL;
+    LoadFromFile(&head); // Loads saved binary data
+
     int del;
     int roll;
 
