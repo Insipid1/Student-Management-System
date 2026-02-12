@@ -9,7 +9,7 @@
 #define BLUE "\033[34m"
 #define CYAN "\033[36m" // output ko color ko lagi
 
-void LoadFromFile(Node **head);
+
 
 typedef struct Student {
     int rollNumber;
@@ -24,7 +24,7 @@ typedef struct Node { // node ko 1st index 'data'-> sabei information contain ga
     Student data;     // ani 2nd index le address lai point garcha
     struct Node *next;
 } Node;
-
+void LoadFromFile(Node **head);
 Node *createNode(Student student) { // Naya node ko creation
     Node *newNode = (Node *)malloc(sizeof(Node));
 
@@ -237,7 +237,7 @@ void DeleteStudentByRoll(Node **head, int roll) {
     printf(GREEN "✓ Student with Roll No %d deleted successfully!\n" RESET, roll);
 }
 
-/*void SaveToFile(Node *head) {
+void SaveToFile(Node *head) {
     FILE *Records = NULL;
     Node *temp = head;
     Records = fopen("Records.txt", "a");
@@ -267,7 +267,27 @@ void DeleteStudentByRoll(Node **head, int roll) {
     fprintf(Records, "+------+---------------------+-----+--------------+------+--------------------------+\n");
     fclose(Records);
     printf(GREEN "✓ Data exported to 'Records.txt'\n" RESET);
-}*/
+}
+
+void SaveToBinaryfile(Node *head) {
+    FILE *fp = fopen("Records.dat", "wb");   // binary write
+    if (fp == NULL) {
+        printf(RED "Error opening file for saving.\n" RESET);
+        return;
+    }
+
+    Node *temp = head;
+    int count = 0;
+
+    while (temp != NULL) {
+        fwrite(&(temp->data), sizeof(Student), 1, fp);
+        temp = temp->next;
+        count++;
+    }
+
+    fclose(fp);
+    printf(GREEN "✓ %d records saved to 'Records.dat'\n" RESET, count);
+}
 
 void LoadFromFile(Node **head) {
     FILE *fp = fopen("Records.dat", "rb");   // binary read
@@ -382,6 +402,7 @@ int main() {
 
         case 8:
             printf(BLUE "___exiting program____\n" RESET);
+            SaveToBinaryfile(head);
             return 0;
 
         default:
