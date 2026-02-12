@@ -3,10 +3,10 @@ A terminal-based student management system built in **C** that demonstrates core
 
 ## Project Overview:
 This Mini-project was done to fulfill the assigment requirement of the course we have in the third semester of Computer Science. This Mini-Project was done by our group which consisted of: 
-                          <h4>---[Sampada  Poudel(09)](https://github.com/Sampada214)---</h4>
-                          <h4>---[Himamshu Poudel(10)](https://github.com/Himamshu205)---</h4>
-                          <h4>---[Swasti   Pradhan(11)](https://github.com/swastipradhan)---</h4>
-                          <h4>---[Shirish Tamrakar(30)](https://github.com/Insipid1)---</h4>
+                          <h4>---[Sampada  Poudel(037532-24)](https://github.com/Sampada214)---</h4>
+                          <h4>---[Himamshu Poudel(037530-24)](https://github.com/Himamshu205)---</h4>
+                          <h4>---[Swasti   Pradhan(037533-24)](https://github.com/swastipradhan)---</h4>
+                          <h4>---[Shirish Tamrakar(037549-24)](https://github.com/Insipid1)---</h4>
 This project is terminal-based meaning there are no GUI elements used for inputs as well as outputs and Was purely done in C programming language. This project demonstrates linked lists and file handling. 
 
 
